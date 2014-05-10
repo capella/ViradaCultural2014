@@ -4,6 +4,12 @@ var app = angular.module('ViradaCultural2014', [
   "mobile-angular-ui"
 ]);
 
+document.addEventListener("deviceready", function() {
+    // retrieve the DOM element that had the ng-app attribute
+    var domElement = document.findByID('kkk');
+    angular.bootstrap(domElement, "ViradaCultural2014");
+}, false);
+
 angular.module('app', ['google-maps']);
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider.when('/',  {
