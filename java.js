@@ -75,6 +75,7 @@ app.controller('Eventos', function($scope,$rootScope, $http, $filter) {
     $scope.loadMore = function() {
         $scope.pageSize+=5;
     };
+    $scope.navigator = navigator;
 }); 
 
 app.controller('Evento', function($scope, $http,$rootScope, $routeParams, $filter) {
@@ -94,7 +95,8 @@ $scope.markers = [];
             title: ($scope.Evento).local.name
         });
         
-        $scope.markers.push(marker);     
+        $scope.markers.push(marker);
+    $scope.navigator = navigator;     
 });
 
 
@@ -142,7 +144,9 @@ app.controller('MAPA', function($scope, $http,$rootScope, $routeParams, $filter)
     $scope.openInfoWindow = function(e, selectedMarker){
         e.preventDefault();
         google.maps.event.trigger(selectedMarker, 'click');
-    }    
+    } 
+    
+    $scope.navigator = navigator;
 });
 
 document.addEventListener("backbutton", onBackKeyDown, false);
