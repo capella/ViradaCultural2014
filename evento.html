@@ -7,7 +7,7 @@
 
     
                     <h4 style="text-align: center;">{{Evento.name}}</h4>
-          <img  ng-show="!!Evento.avatarviradaSmall.url" src="{{Evento.avatarviradaSmall.url }}" style="width: 100%;" class="img-thumbnail"  ng-show=" navigator.onLine">
+          <img  ng-show="!!Evento.avatarviradaSmall.url" src="{{Evento.avatarviradaSmall.url }}" style="width: 100%;" class="img-thumbnail"  ng-show=" navigator.onLine==true">
           <div class="caption"  style="text-align: justify;">
        <p style="text-align: justify;" class="text-default text-primary"><hr>{{Evento.shortDescription}}</p>
           </div>
@@ -17,7 +17,7 @@
         <tr><td>Endereço:</td><td>{{Evento.local.endereco}}</td></tr>
     </table>
     
-        <div id="map" style="height: 400px;margin-left: -15px;margin-right: -15px;margin-bottom: -70px;"  ng-show=" navigator.onLine"></div>
+        <div id="map" style="height: 400px;margin-left: -15px;margin-right: -15px;margin-bottom: -70px;"  ng-show="navigator.onLine==true"></div>
     
 
       

@@ -6,7 +6,7 @@
           <a ng-repeat="Evento in dataEventos | filter:query | orderBy:'name'| limitTo:pageSize" class="list-group-item media" href="#/evento/{{ Evento.id }}">
               <div ng-switch on="!!Evento.avatarviradaSmall.url"  class="pull-right">
                   <div ng-switch-when="false"><span class="label label-success">{{ Evento.classificacaoEtaria }}</span> </div>
-                  <div ng-switch-default><img ng-src="{{Evento.avatarviradaSmall.url }}" class="img-rounded pull-left" width="90px" ng-show=" navigator.onLine"></div>
+                  <div ng-switch-default><img ng-src="{{Evento.avatarviradaSmall.url }}" class="img-rounded pull-left" width="90px" ng-show=" navigator.onLine==true"></div>
               </div>
             <div class="media-body"><h5><strong>{{ Evento.name }}</strong></h5><br>
                 {{Evento.local.name}}<br>
