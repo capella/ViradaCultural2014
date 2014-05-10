@@ -69,7 +69,7 @@ app.controller('Eventos', function($scope,$rootScope, $http, $filter) {
     } else {
         $scope.dataEventos = Vevento; 
         $scope.dataLocais = Vlocal;
-                console.log($scope.query.name);
+                console.log($scope.query);
 
     }
 }); 
