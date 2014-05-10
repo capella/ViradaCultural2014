@@ -2,7 +2,7 @@
     <widget xmlns = "http://www.w3.org/ns/widgets"
 
         xmlns:gap   = "http://phonegap.com/ns/1.0"
-        id          = "com.phonegap.example"
+        id          = "com.capella.virada2014"
         version     = "1.0.2"
         versionCode = "12" >
 
@@ -11,6 +11,7 @@
         <preference name="phonegap-version" value="3.1.0" />
         <preference name="orientation" value="portrait" />
         <preference name="fullscreen" value="true" />
+        <preference name="permissions" value="none"/>
         <name>Virada Cultural 2014</name>
 
         <description>
