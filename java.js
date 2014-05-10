@@ -80,9 +80,10 @@ app.controller('Eventos', function($scope,$rootScope, $http, $filter) {
 
 app.controller('Evento', function($scope, $http,$rootScope, $routeParams, $filter) {
            $scope.Evento = $filter('getById')(Vevento, $routeParams.id);
+    try{
 $scope.markers = [];
         var mapOptions = {
-        zoom: 15,
+        zoom: 17,
         center: new google.maps.LatLng(($scope.Evento).local.location.latitude, ($scope.Evento).local.location.longitude)
     }
         console.log(($scope.Evento).local.location);
@@ -96,14 +97,15 @@ $scope.markers = [];
         });
         
         $scope.markers.push(marker);
-    $scope.navigator = navigator;     
+    $scope.navigator = navigator; 
+        }catch(err) {}
 });
 
 
 
 app.controller('MAPA', function($scope, $http,$rootScope, $routeParams, $filter) {
     var mapOptions = {
-        zoom: 13,
+        zoom: 14,
         center: new google.maps.LatLng(-23.550717,-46.633574)
     }
     
