@@ -148,7 +148,7 @@ app.controller('MAPA', function($scope, $http,$rootScope, $routeParams, $filter)
 document.addEventListener("backbutton", onBackKeyDown, false);
 
 function onBackKeyDown() {
-    $location.path('/home');
+    $location.path('/');
 }
 
 
