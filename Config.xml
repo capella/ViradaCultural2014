@@ -16,5 +16,10 @@
     <author href="https://gabrielcapella.com/" email="gabriiel@capella.pro">
         Gabriel Capella
     </author>
-
+    <preference name="phonegap-version" value="3.3.0" />
+    <preference name="orientation" value="landscape" />
+        <access origin="*" />
+        
+        <gap:platform name="android" />
+         <preference name="permissions" value="none"/>
 </widget>
