@@ -22,8 +22,6 @@
         </author>
         
         <gap:platform name="android" />
-        <gap:plugin name="org.apache.cordova.device" />
-        <gap:plugin name="org.apache.cordova.device-motion" />
         
         <access origin="*" />
             

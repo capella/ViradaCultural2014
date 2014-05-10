@@ -1,7 +1,8 @@
 var app = angular.module('ViradaCultural2014', [
   "ngRoute",
   "ngTouch",
-  "mobile-angular-ui"
+  "mobile-angular-ui",
+  'infinite-scroll'
 ]);
 
 document.addEventListener("deviceready", function() {
@@ -10,7 +11,7 @@ document.addEventListener("deviceready", function() {
     angular.bootstrap(domElement, "ViradaCultural2014");
 }, false);
 
-angular.module('app', ['google-maps']);
+
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider.when('/',  {
       templateUrl: "home.html", 
@@ -38,7 +39,6 @@ app.controller('MainController', function($rootScope, $scope){
 
 var Vlocal = new Array();
 var Vevento = new Array();
-console.log(Vevento[0]);
 
 app.filter('getById', function() {
   return function(input, id) {
@@ -53,6 +53,7 @@ app.filter('getById', function() {
 });
 
 app.controller('Eventos', function($scope,$rootScope, $http, $filter) {
+    $scope.pageSize = 75;
     if(Vlocal[0]==undefined ){
         $rootScope.loading = true;
         $http.get('assets/json/locais.json').then(function (value) {
@@ -67,7 +68,9 @@ app.controller('Eventos', function($scope,$rootScope, $http, $filter) {
         });
     } else {
         $scope.dataEventos = Vevento; 
-        $scope.dataLocais = Vlocal; 
+        $scope.dataLocais = Vlocal;
+                console.log($scope.query.name);
+
     }
 }); 
 
