@@ -26,19 +26,14 @@
         
     <!-- GENERAL PREFERENCES -->
         
-    <preference name="phonegap-version" value="3.3.0" />
+    <preference name="phonegap-version" value="3.4.0" />
     <preference name="orientation" value="landscape" />
     <preference name="fullscreen" value="true" /> <!-- remove the upper bar on iOS and Android -->
         
 
     <!-- ANDROID PREFERENCES -->
         
-    <preference name="android-minSdkVersion" value="7" /> <!-- minimum Android 2.1 -->
-    <!-- <preference name="android-maxSdkVersion" value="19" /> maximum Android 4.4 -->
-    <preference name="android-targetSdkVersion" value="19" /> <!-- targeting Android 4.4 -->
-    <preference name="android-installLocation" value="auto" />
-    <preference name="android-windowSoftInputMode" value="stateVisible|adjustResize" />
-    <preference name="splash-screen-duration" value="5000" />
+
 
     <preference name="load-url-timeout" value="20000" />
         
