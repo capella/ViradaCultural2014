@@ -73,7 +73,7 @@ app.controller('Eventos', function($scope,$rootScope, $http, $filter) {
 
     }
     $scope.loadMore = function() {
-        $scope.pageSize++;
+        $scope.pageSize+=5;
     };
 }); 
 

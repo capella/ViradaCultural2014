@@ -2,7 +2,7 @@
     <input type="search" class="form-control app-search" placeholder="Buscar..."  ng-model="query.name" />
     <div class="scrollable">
       <div class="scrollable-content">
-        <div class="list-group" infinite-scroll='loadMore()' infinite-scroll-distance='6'>
+        <div class="list-group" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
           <a ng-repeat="Evento in dataEventos | filter:query | orderBy:'name'| limitTo:pageSize" class="list-group-item media" href="#/evento/{{ Evento.id }}">
               <div ng-switch on="!!Evento.avatarviradaSmall.url"  class="pull-right">
                   <div ng-switch-when="false"><span class="label label-success">{{ Evento.classificacaoEtaria }}</span> </div>
