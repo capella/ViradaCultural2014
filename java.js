@@ -2,7 +2,7 @@ var app = angular.module('ViradaCultural2014', [
   "ngRoute",
   "ngTouch",
   "mobile-angular-ui",
-  'infinite-scroll'
+  "infinite-scroll"
 ]);
 
 document.addEventListener("deviceready", function() {
@@ -53,7 +53,7 @@ app.filter('getById', function() {
 });
 
 app.controller('Eventos', function($scope,$rootScope, $http, $filter) {
-    $scope.pageSize = 75;
+    $scope.pageSize = 15;
     if(Vlocal[0]==undefined ){
         $rootScope.loading = true;
         $http.get('assets/json/locais.json').then(function (value) {
@@ -69,9 +69,12 @@ app.controller('Eventos', function($scope,$rootScope, $http, $filter) {
     } else {
         $scope.dataEventos = Vevento; 
         $scope.dataLocais = Vlocal;
-                console.log($scope.query);
+        console.log($scope.query);
 
     }
+    $scope.loadMore = function() {
+        $scope.pageSize++;
+    };
 }); 
 
 app.controller('Evento', function($scope, $http,$rootScope, $routeParams, $filter) {
@@ -141,6 +144,12 @@ app.controller('MAPA', function($scope, $http,$rootScope, $routeParams, $filter)
         google.maps.event.trigger(selectedMarker, 'click');
     }    
 });
+
+document.addEventListener("backbutton", onBackKeyDown, false);
+
+function onBackKeyDown() {
+    $location.path('/home');
+}
 
 
 
