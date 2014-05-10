@@ -1,0 +1,29 @@
+
+
+
+<div class="scrollable">
+<div class="scrollable-content">
+  <div class="container section section-break" id="toggleExample">
+
+    
+                    <h4 style="text-align: center;">{{Evento.name}}</h4>
+          <img  ng-show="!!Evento.avatarviradaSmall.url" src="{{Evento.avatarviradaSmall.url }}" style="width: 100%;" class="img-thumbnail">
+          <div class="caption"  style="text-align: justify;">
+       <p style="text-align: justify;" class="text-default text-primary"><hr>{{Evento.shortDescription}}</p>
+          </div>
+    <table class="table table-bordered">
+        <tr><td>Data:</td><td>{{Evento.startsOn | date:'dd/MM/yyyy'}} - {{ Evento.startsAt }}</td></tr>
+        <tr><td>Local:</td><td>{{Evento.local.name}}</td></tr>
+        <tr><td>Endereço:</td><td>{{Evento.local.endereco}}</td></tr>
+    </table>
+    
+        <div id="map" style="height: 400px;margin-left: -15px;margin-right: -15px;margin-bottom: -70px;"></div>
+    
+
+      
+  </div>
+
+</div>
+</div>
+
+
