@@ -3,8 +3,8 @@
 
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         id          = "com.capella.virada2014"
-        version     = "1.1.2"
-        versionCode = "12" >
+        version     = "1.0.3"
+        versionCode = "13" >
 
         <!-- versionCode is optional and Android only -->
 
