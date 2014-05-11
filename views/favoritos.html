@@ -1,9 +1,8 @@
 <div>
-    <input type="search" class="form-control app-search" placeholder="Buscar..."  ng-model="query.name" />
     <div class="scrollable">
       <div class="scrollable-content">
         <div class="list-group" infinite-scroll='loadMore()' infinite-scroll-distance='2' style="margin-bottom: 50px;">
-          <a ng-repeat="Evento in dataLocais | filter:query | orderBy:'name'| limitTo:pageSize" class="list-group-item media" href="#/evento/{{ Evento.id}}">
+          <a ng-repeat="Evento in dataLocais | orderBy:'data.name'| limitTo:pageSize" class="list-group-item media" href="#/evento/{{ Evento.id}}">
                 {{Evento.data.name}}<br>
           </a>
         </div>
