@@ -1,0 +1,23 @@
+<div>
+    <input type="search" class="form-control app-search" placeholder="Buscar..."  ng-model="query.name" />
+    <div class="scrollable">
+      <div class="scrollable-content">
+        <div class="list-group" infinite-scroll='loadMore()' infinite-scroll-distance='2' style="margin-bottom: 50px;">
+          <a ng-repeat="Evento in dataLocais | filter:query | orderBy:'name'| limitTo:pageSize" class="list-group-item media" href="#/evento/{{ Evento.id}}">
+                {{Evento.data.name}}<br>
+          </a>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+    <div class="navbar navbar-app navbar-absolute-bottom">
+      <div class="btn-group justified">
+        <a href="#/locais" class="btn btn-navbar"><i class="fa fa-home fa-navbar"></i> Locais</a>
+        <a href="#/favoritos" class="btn btn-navbar"><i class="fa fa-star fa-navbar"></i> Favoritos</a>
+<a href="index.html#/map" class="btn btn-navbar">
+            <i class="fa fa-globe"></i> Mapa
+          </a>
+        </div>
+    </div>

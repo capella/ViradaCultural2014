@@ -5,6 +5,13 @@ var app = angular.module('ViradaCultural2014', [
   "infinite-scroll"
 ]);
 
+var lib = new localStorageDB("library", localStorage);
+if( lib.isNew() ) {
+    lib.createTable("favoritos", ["id","data"]);
+    lib.commit();
+}
+
+
 document.addEventListener("deviceready", function() {
     // retrieve the DOM element that had the ng-app attribute
     var domElement = document.findByID('kkk');
@@ -14,16 +21,28 @@ document.addEventListener("deviceready", function() {
 
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider.when('/',  {
-      templateUrl: "home.html", 
+      templateUrl: "views/home.html", 
       controller:'Eventos'
   });
   $routeProvider.when('/evento/:id', {
-      templateUrl: "evento.html", 
+      templateUrl: "views/evento.html", 
       controller:'Evento'
   }); 
   $routeProvider.when('/map', {
-      templateUrl: "map.html", 
+      templateUrl: "views/map.html", 
       controller:'MAPA'
+  }); 
+  $routeProvider.when('/locais', {
+      templateUrl: "views/locais.html", 
+      controller:'Locais'
+  }); 
+  $routeProvider.when('/horarios/:idlocal', {
+      templateUrl: "views/locais-eventos.html", 
+      controller:'Horarios'
+  }); 
+  $routeProvider.when('/favoritos', {
+      templateUrl: "views/favoritos.html", 
+      controller:'Favoritos'
   }); 
 });
 
@@ -62,6 +81,7 @@ app.controller('Eventos', function($scope,$rootScope, $http, $filter) {
                 Vlocal = value.data; $scope.dataLocais = Vlocal;
                  angular.forEach(Vevento, function(value, key){
                    Vevento[key].local= $filter('getById')(Vlocal, Vevento[key].spaceId);
+                   Vevento[key].d = new Date(Vevento[key].startsOn);
                  });
                 $rootScope.loading = false;
             });
@@ -99,6 +119,27 @@ $scope.markers = [];
         $scope.markers.push(marker);
     $scope.navigator = navigator; 
         }catch(err) {}
+    
+    var favo = lib.query("favoritos", {id: $routeParams.id});
+
+    if(favo[0] != undefined ){
+        $scope.like=true;
+    } else {
+        $scope.like=false;
+    }
+    $scope.addf  = function() {
+        var favo2 = lib.query("favoritos", {id: $routeParams.id});
+        console.log(favo2[0]);
+        if(favo2[0] != undefined){
+            lib.deleteRows("favoritos", {id: $routeParams.id});
+            lib.commit(); 
+            $scope.like=false;
+        } else {
+             lib.insert("favoritos", {id: $routeParams.id, data: $scope.Evento});
+            lib.commit(); 
+             $scope.like=true;
+        } 
+    };
 });
 
 
@@ -124,13 +165,13 @@ app.controller('MAPA', function($scope, $http,$rootScope, $routeParams, $filter)
         try{
         var marker = new google.maps.Marker({
             map: $scope.map,
-            position: new google.maps.LatLng(info.local.location.latitude, info.local.location.longitude),
+            position: new google.maps.LatLng(info.location.latitude, info.location.longitude),
             title: info.city
         });
-        marker.content = '<div class="infoWindowContent">' + info.startsAt + '</div>';
+        //marker.content = '<div class="infoWindowContent">' + info.startsAt + '</div>';
         
         google.maps.event.addListener(marker, 'click', function(){
-            infoWindow.setContent('<small>' + info.name + '' + marker.content + '  <a  href="#/evento/'+info.id+'">Mais informações.</a></small>');
+            infoWindow.setContent('<small>' + info.name + '' + '<br>  <a  href="#/horarios/'+info.id+'">Veja os eventos.</a></small>');
             infoWindow.open($scope.map, marker);
         });
         
@@ -139,8 +180,8 @@ app.controller('MAPA', function($scope, $http,$rootScope, $routeParams, $filter)
         
     }  
     
-    for (i = 0; i < Vevento.length; i++){
-        createMarker(Vevento[i]);
+    for (i = 0; i < Vlocal.length; i++){
+        createMarker(Vlocal[i]);
     }
 
     $scope.openInfoWindow = function(e, selectedMarker){
@@ -151,11 +192,57 @@ app.controller('MAPA', function($scope, $http,$rootScope, $routeParams, $filter)
     $scope.navigator = navigator;
 });
 
+app.controller('Locais', function($scope,$rootScope, $http, $filter) {
+    $scope.pageSize = 15;
+    $scope.dataLocais = Vlocal;
+    $scope.loadMore = function() {
+        $scope.pageSize+=5;
+    };
+    $scope.navigator = navigator;
+});
+
+
+app.controller('Favoritos', function($scope,$rootScope, $http, $filter) {
+    $scope.pageSize = 15;
+    $scope.dataLocais = lib.query("favoritos");
+    $scope.loadMore = function() {
+        $scope.pageSize+=5;
+    };
+    $scope.navigator = navigator;
+});
+
+
+app.filter('idlocalFilter', [function(){
+    return function(Eventos, myParam){
+        var result = {};
+        angular.forEach(Vevento, function(machine, key){
+            if(machine.spaceId == (myParam)){
+                result[key] = machine;
+            }
+        });
+        return result;
+    };
+}]);
+
+app.controller('Horarios', function($scope,$rootScope,  $routeParams, $filter) {
+    $scope.pageSize = 15;
+    $scope.dataLocais = Vlocal;
+    $scope.dataEventos  = Vevento;
+    $scope.idlocal = $routeParams.idlocal;
+    $scope.loadMore = function() {
+        $scope.pageSize+=5;
+    };
+    $scope.navigator = navigator;
+}); 
+ 
+
 document.addEventListener("backbutton", onBackKeyDown, false);
 
 function onBackKeyDown($location, $window) {
     window.location.assign('#/');
 }
+
+
 
 
 
