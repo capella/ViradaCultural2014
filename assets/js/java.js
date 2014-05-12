@@ -44,10 +44,6 @@ app.config(function($routeProvider, $locationProvider) {
       templateUrl: "views/favoritos.html", 
       controller:'Favoritos'
   }); 
-  $routeProvider.when('/categorias', {
-      templateUrl: "views/categoria.html", 
-      controller:'Categorias'
-  }); 
   $routeProvider.when('/cate/:idlocal', {
       templateUrl: "views/categoria-eventos.html", 
       controller:'Cate'
@@ -262,15 +258,6 @@ function onBackKeyDown($location, $window) {
     window.location.assign('#/');
 }
 
-
-app.controller('Categorias', function($scope,$rootScope, $http, $filter) {
-    $scope.pageSize = 15;
-    $scope.dataLocais =  categorias;
-    $scope.loadMore = function() {
-        $scope.pageSize+=5;
-    };
-    $scope.navigator = navigator;
-});
 
 
 app.filter('idcateFilter', [function(){
