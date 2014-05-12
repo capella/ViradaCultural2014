@@ -44,6 +44,14 @@ app.config(function($routeProvider, $locationProvider) {
       templateUrl: "views/favoritos.html", 
       controller:'Favoritos'
   }); 
+  $routeProvider.when('/categorias', {
+      templateUrl: "views/categoria.html", 
+      controller:'Categorias'
+  }); 
+  $routeProvider.when('/cate/:idlocal', {
+      templateUrl: "views/categoria-eventos.html", 
+      controller:'Cate'
+  }); 
 });
 
 
@@ -71,7 +79,9 @@ app.filter('getById', function() {
   }
 });
 
-app.controller('Eventos', function($scope,$rootScope, $http, $filter) {
+
+var categorias =  new Array();
+app.controller('Eventos', function($scope,$rootScope, $http, $filter, $location, $anchorScroll) {
     $scope.pageSize = 15;
     if(Vlocal[0]==undefined ){
         $rootScope.loading = true;
@@ -82,8 +92,14 @@ app.controller('Eventos', function($scope,$rootScope, $http, $filter) {
                  angular.forEach(Vevento, function(value, key){
                    Vevento[key].local= $filter('getById')(Vlocal, Vevento[key].spaceId);
                    Vevento[key].d = new Date(Vevento[key].startsOn);
+                   categorias.push(Vevento[key].terms.tag[0]);
                  });
                 $rootScope.loading = false;
+                var unique = [];
+                $.each(categorias, function(i, el){
+                    if($.inArray(el, unique) === -1 && el != undefined && el !="") unique.push(el);
+                });
+                categorias =unique;
             });
         });
     } else {
@@ -96,7 +112,10 @@ app.controller('Eventos', function($scope,$rootScope, $http, $filter) {
         $scope.pageSize+=5;
     };
     $scope.navigator = navigator;
+    
+    
 }); 
+
 
 app.controller('Evento', function($scope, $http,$rootScope, $routeParams, $filter) {
            $scope.Evento = $filter('getById')(Vevento, $routeParams.id);
@@ -140,6 +159,7 @@ $scope.markers = [];
              $scope.like=true;
         } 
     };
+    lastid =$routeParams.id;
 });
 
 
@@ -242,6 +262,40 @@ function onBackKeyDown($location, $window) {
     window.location.assign('#/');
 }
 
+
+app.controller('Categorias', function($scope,$rootScope, $http, $filter) {
+    $scope.pageSize = 15;
+    $scope.dataLocais =  categorias;
+    $scope.loadMore = function() {
+        $scope.pageSize+=5;
+    };
+    $scope.navigator = navigator;
+});
+
+
+app.filter('idcateFilter', [function(){
+    return function(Eventos, myParam){
+        var result = {};
+        angular.forEach(Vevento, function(machine, key){
+            if(machine.terms.tag[0] == (myParam)){
+                result[key] = machine;
+            }
+        });
+        return result;
+    };
+}]);
+
+app.controller('Cate', function($scope,$rootScope,  $routeParams, $filter) {
+    $scope.pageSize = 15;
+    $scope.dataLocais = Vlocal;
+    $scope.dataEventos  = Vevento;
+    $scope.idlocal = $routeParams.idlocal;
+    $scope.loadMore = function() {
+        $scope.pageSize+=5;
+    };
+    $scope.navigator = navigator;
+}); 
+ 
 
 
 

@@ -12,6 +12,7 @@
        <p style="text-align: justify;" class="text-default text-primary"><hr>{{Evento.shortDescription}}</p>
           </div>
     <table class="table table-bordered">
+        <tr ng-show='!!Evento.terms.tag[0]'><td>Categoria:</td><td>{{ Evento.terms.tag[0] }}</td></tr>
         <tr><td>Data:</td><td>{{Evento.startsOn | date:'dd/MM/yyyy'}} - {{ Evento.startsAt }}</td></tr>
         <tr><td>Local:</td><td>{{Evento.local.name}}</td></tr>
         <tr><td>Endereço:</td><td>{{Evento.local.endereco}}</td></tr>
