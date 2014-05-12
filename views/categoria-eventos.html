@@ -2,7 +2,7 @@
     <div class="scrollable">
       <div class="scrollable-content">
         <div class="list-group" infinite-scroll='loadMore()' infinite-scroll-distance='2'  style="margin-bottom: 50px;">
-          <a ng-repeat="Evento in dataEventos | idcateFilter:idlocal | orderBy:['startOn','startAt']| limitTo:pageSize" class="list-group-item media" href="#/evento/{{ Evento.id }}">
+          <a ng-repeat="Evento in dataEventos | idcateFilter:idlocal | orderBy:'name'| limitTo:pageSize" class="list-group-item media" href="#/evento/{{ Evento.id }}">
               <div ng-switch on="!!Evento.avatarviradaSmall.url"  class="pull-right">
                   <div ng-switch-when="false"><span class="label label-success">{{ Evento.classificacaoEtaria }}</span> </div>
                   <div ng-switch-default><img ng-src="{{Evento.avatarviradaSmall.url }}" class="img-rounded pull-left" width="90px" ng-show=" navigator.onLine==true"></div>
@@ -28,4 +28,10 @@
         </div>
     </div>
 
+
+<div content-for="navbarAction">
+          <div ng-click="toggle('rightSidebar')" class="btn btn-navbar">
+            <i class="fa fa-bars"></i>
+          </div>
+</div>
 
