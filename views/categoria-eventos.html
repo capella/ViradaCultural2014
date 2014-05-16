@@ -1,15 +1,15 @@
 <div>
     <div class="scrollable">
       <div class="scrollable-content">
-        <div class="list-group" infinite-scroll='loadMore()' infinite-scroll-distance='2'  style="margin-bottom: 50px;">
-          <a ng-repeat="Evento in dataEventos | idcateFilter:idlocal | orderBy:'name'| limitTo:pageSize" class="list-group-item media" href="#/evento/{{ Evento.id }}">
-              <div ng-switch on="!!Evento.avatarviradaSmall.url"  class="pull-right">
-                  <div ng-switch-when="false"><span class="label label-success">{{ Evento.classificacaoEtaria }}</span> </div>
-                  <div ng-switch-default><img ng-src="{{Evento.avatarviradaSmall.url }}" class="img-rounded pull-left" width="90px" ng-show=" navigator.onLine==true"></div>
+        <div class="list-group" infinite-scroll='loadMore()' infinite-scroll-distance='2' style="margin-bottom: 50px;">
+          <a ng-repeat="Evento in dataEventos | filter:query | orderBy:'name'| limitTo:pageSize | idcateFilter:idlocal " class="list-group-item media" href="#/evento/{{ Evento.id }}" id="e{{Evento.id}}">
+              <div ng-switch on="!!Evento.defaultImageThumb"  class="pull-right">
+                  
+                  <div ng-switch-default><img ng-src="{{Evento.defaultImageThumb }}" class="img-rounded pull-left" width="90px" ng-show=" navigator.onLine==true"></div>
               </div>
             <div class="media-body"><h5><strong>{{ Evento.name }}</strong></h5><br>
                 {{Evento.local.name}}<br>
-                <small><div ng-show='!!Evento.terms.tag[0]'>{{ Evento.terms.tag[0] }}<br></div>{{Evento.d | date:'dd/MM/yyyy'}} - {{ Evento.startsAt }}</small>
+                <small><div ng-show='!!Evento.terms.tag[0]'>{{ Evento.terms.tag[0] }}<br></div> {{Evento.startsOn | date:'dd/MM/yyyy'}} - {{ Evento.startsAt }}</small>
             </div>
           </a>
         </div>
@@ -34,4 +34,5 @@
             <i class="fa fa-bars"></i>
           </div>
 </div>
+
 

@@ -7,7 +7,7 @@
 
     
                     <h4 style="text-align: center;">{{Evento.name}}</h4>
-          <img  ng-show="!!Evento.avatarviradaSmall.url" src="{{Evento.avatarviradaSmall.url }}" style="width: 100%;" class="img-thumbnail"  ng-show=" navigator.onLine==true">
+          <img  ng-show="!!Evento.defaultImageThumb" src="{{Evento.defaultImageThumb }}" style="width: 100%;" class="img-thumbnail"  ng-show=" navigator.onLine==true">
           <div class="caption"  style="text-align: justify;">
        <p style="text-align: justify;" class="text-default text-primary"><hr>{{Evento.shortDescription}}</p>
           </div>
